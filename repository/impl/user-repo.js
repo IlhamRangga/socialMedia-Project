@@ -10,26 +10,6 @@ class UserRepository {
 
         return user.save()
     }
-
-    findByUsername = (username) => {
-        return UserModel.findOne({
-            username
-        })
-    }
-
-    findById = (id) => {
-        return UserModel.findOne({
-            _id: id
-        })
-    }
-
-    update = (id, data) => {
-        return UserModel.updateOne({_id: id},data)
-    }
-
-    delete = (id) => {
-        return UserModel.deleteOne({_id: id})
-    }
 }
 
 export default UserRepository
