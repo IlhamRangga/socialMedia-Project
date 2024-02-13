@@ -17,6 +17,12 @@ class UserRepository {
         })
     }
 
+    findByRefreshToken = (refreshToken) => {
+        return UserModel.findOne({
+            refresh_token: refreshToken
+        })
+    }
+
     findById = (id) => {
         return UserModel.findOne({
             _id: id
@@ -27,13 +33,10 @@ class UserRepository {
         return UserModel.findOne({email: email})
     }
 
-    update = (id, data) => {
-        return UserModel.updateOne({_id: id},data)
+    update = (username, data) => {
+        return UserModel.updateOne({username: username},data)
     }
 
-    delete = (id) => {
-        return UserModel.deleteOne({_id: id})
-    }
 }
 
 export default UserRepository

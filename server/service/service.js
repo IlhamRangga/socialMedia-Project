@@ -1,5 +1,5 @@
-import { loginSchema, registerSchema, updateSchema } from '../utils/validator/validator.js';
-import { generateToken, encryptPassword } from '../utils/auth/auth.js';
+import { loginSchema, registerSchema } from '../utils/validator/validator.js';
+import { generateRefreshToken, encryptPassword, generateAccessToken } from '../utils/auth/auth.js';
 import bcrypt from 'bcrypt'
 
 class Service {
@@ -25,12 +25,17 @@ class Service {
         if (existingUsername) {
             throw new Error("Username already used")
         }
+
+        if (userData.password !== userData.confPassword) {
+            throw new Error("password isn't same")
+        }
     
         userData.password = await encryptPassword(userData.password)
     
-        const token = await generateToken({id: userData._id})
+        const token = await accessToken({id: userData._id})
     
         await this.repo.add(userData)
+        console.log(token)
     
         return token
     }
@@ -53,8 +58,14 @@ class Service {
         if(!isPasswordValid) {
             throw new Error("invalid password")
         }
-    
-        return await generateToken({id: user._id})
+        
+        const accessToken = await generateAccessToken({id: user.id})
+
+        const refreshToken = await generateRefreshToken({id: user.id})
+
+        await this.repo.update(userInput.username, {user, refresh_token: refreshToken})
+        
+        return {refreshToken, accessToken}
     }
     
     getUser = async (username) => {
@@ -67,42 +78,6 @@ class Service {
         return { username: user.username, email: user.email}
     }
     
-    updateUser = async (id, update) => {
-        const { error } = updateSchema.validate(update, {
-            abortEarly: true
-        })
-    
-        if(error) {
-            throw new Error("cannot update")
-        }
-    
-        const user = await this.repo.findById(id)
-    
-        if(!user) {
-            throw new Error("user not found")
-        }
-    
-        if(update.password) {
-            update.password = await encryptPassword(update.password)
-        }
-    
-        const token = await generateToken({id: user._id})
-    
-        await this.repo.update(id, update)
-    
-        return token
-    
-    }
-    
-    deleteUser = async (id) => {
-        const user = await this.repo.findById(id)
-    
-        if(!user) {
-            throw new Error("user not found")
-        }
-    
-        return await this.repo.delete(id)
-    }
 }
 
 

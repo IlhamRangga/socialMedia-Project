@@ -10,18 +10,25 @@ const encryptPassword = async (password) => {
 
 }
 
-const generateToken = (_id) => {
-    return jwt.sign(_id, process.env.JWT_SECRET, {
-        expiresIn: 3600000,
+const generateAccessToken = (_id) => {
+    return jwt.sign(_id, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: '20s',
+    })
+}
+
+const generateRefreshToken = (_id) => {
+    return jwt.sign(_id, process.env.REFRESH_TOKEN_SECRET, {
+        expiresIn: '1d'
     })
 }
 
 const verify = (token) => {
-    return jwt.verify(token, process.env.JWT_SECRET)
+    return jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 }
 
 export {
     encryptPassword,
-    generateToken,
+    generateAccessToken,
+    generateRefreshToken,
     verify
 }

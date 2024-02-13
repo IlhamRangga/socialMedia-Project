@@ -1,4 +1,4 @@
-class Controller {
+class AuthController {
     constructor(svc) {
         this.svc = svc
     }
@@ -17,9 +17,14 @@ class Controller {
     login = async (req,res) => {
         try {
             const token = await this.svc.login(req.body)
+            res.cookie('refreshToken', token.refreshToken, {
+                httpOnly: true,
+                maxAge: 24 * 60 * 60 * 1000,
+                // secure: true
+            })
             res.send({
                 status: "success",
-                token,
+                accessToken: token.accessToken
             })
         } catch (error) {
             res.status(500).send({message: error.message})
@@ -37,29 +42,6 @@ class Controller {
             res.send({message: error.message})
         }
     }
-
-    updateUser = async (req,res) => {
-        try {
-            const token = await this.svc.updateUser(req.params.id, req.body)
-            res.send({
-                status: "success",
-                token
-            })
-        }catch (error) {
-            res.send({message: error.message})
-        }
-    }
-
-    deleteUser = async (req, res) => {
-        try {
-            await this.svc.deleteUser(req.params.id)
-            res.send({
-                status: "success"
-            })
-        } catch (error) {
-            res.send({message: error.message})
-        }  
-    }
 }
 
-export default Controller
+export default AuthController

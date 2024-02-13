@@ -1,12 +1,9 @@
 import authorization from "../middleware/middleware.js"
-import upload from "../utils/upload/upload.js"
 
-const routes = (app, controller) => {
-    app.post("/register", controller.register)
-    app.post("/login", controller.login)
-    app.get("/",authorization, controller.getUser)
-    app.put("/update/:id", authorization, controller.updateUser)
-    app.delete("/delete/:id", authorization, controller.deleteUser)
+const routes = (app, authController) => {
+    app.post("/register", authController.register)
+    app.post("/login", authController.login)
+    app.get("/",authorization, authController.getUser)
 }
 
 export default routes

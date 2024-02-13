@@ -15,6 +15,9 @@ password: {
 email: {
     type: String,
 },
+refresh_token: {
+    type: String,
+}
 })
 
 const UserModel = mongoose.model("user", User)
