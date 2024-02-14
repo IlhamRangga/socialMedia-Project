@@ -3,9 +3,10 @@ import UserModel from "../model/user.js";
 class UserRepository {
     add = (req) => {
         const user = new UserModel({
-            username: req.username,
-            password: req.password,
-            email: req.email
+            username: req.userData.username,
+            password: req.userData.password,
+            email: req.userData.email,
+            refresh_token: req.refreshToken
         })
 
         return user.save()
@@ -33,8 +34,8 @@ class UserRepository {
         return UserModel.findOne({email: email})
     }
 
-    update = (username, data) => {
-        return UserModel.updateOne({username: username},data)
+    update = (id, data) => {
+        return UserModel.updateOne({_id: id},data)
     }
 
 }

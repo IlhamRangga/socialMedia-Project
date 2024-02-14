@@ -2,7 +2,7 @@ import { loginSchema, registerSchema } from '../utils/validator/validator.js';
 import { generateRefreshToken, encryptPassword, generateAccessToken } from '../utils/auth/auth.js';
 import bcrypt from 'bcrypt'
 
-class Service {
+class AuthService {
     constructor(repo){
         this.repo = repo
     }
@@ -32,12 +32,14 @@ class Service {
     
         userData.password = await encryptPassword(userData.password)
     
-        const token = await accessToken({id: userData._id})
+        const accessToken = await generateAccessToken({id: userData._id})
+
+        const refreshToken = await generateRefreshToken({id: userData.id})
+
+        await this.repo.add({userData, refreshToken})
+
     
-        await this.repo.add(userData)
-        console.log(token)
-    
-        return token
+        return {refreshToken, accessToken}
     }
     
     login = async (userInput) => {
@@ -63,9 +65,27 @@ class Service {
 
         const refreshToken = await generateRefreshToken({id: user.id})
 
-        await this.repo.update(userInput.username, {user, refresh_token: refreshToken})
+        await this.repo.update(user.id, { refresh_token: refreshToken })
         
         return {refreshToken, accessToken}
+    }
+
+    logout = async (token) => {
+        const refreshToken = token
+
+        if(!refreshToken) {
+            throw new Error("Token not found")
+        }
+
+        const user = await this.repo.findByRefreshToken(refreshToken)
+
+        if(!user) {
+            throw new Error("Token invalid")
+        }
+
+        await this.repo.update(user.id , { refresh_token: null })
+
+        return
     }
     
     getUser = async (username) => {
@@ -83,4 +103,4 @@ class Service {
 
 
 
-export default Service
+export default AuthService

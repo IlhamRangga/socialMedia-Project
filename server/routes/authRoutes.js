@@ -1,9 +1,10 @@
 import authorization from "../middleware/middleware.js"
 
-const routes = (app, authController) => {
+const authRoutes = (app, authController) => {
     app.post("/register", authController.register)
     app.post("/login", authController.login)
     app.get("/",authorization, authController.getUser)
+    app.delete("/logout", authController.logout)
 }
 
-export default routes
+export default authRoutes
