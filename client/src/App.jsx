@@ -1,8 +1,14 @@
+import {BrowserRouter as Router, Routes , Route} from 'react-router-dom'
+import Register from './pages/Register';
 
 function App() {
   return (
     <>
-    <h1 className="bg-sky-500 ">halo</h1>
+     <Router>
+        <Routes>
+           <Route path="/" element={<Register/>}/>
+        </Routes>
+     </Router>
     </>
   );
 }
