@@ -27,6 +27,6 @@ const tokenController = new TokenController(tokenService)
 authRoutes(app, authController)
 tokenRoutes(app, tokenController)
 
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log("listening on port 3001")
 })
