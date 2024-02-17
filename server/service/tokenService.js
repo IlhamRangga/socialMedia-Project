@@ -19,7 +19,7 @@ class TokenService {
             throw new Error("token is not synchronized")
         }
 
-        const accessToken = await generateAccessToken({id: user.id})
+        const accessToken = await generateAccessToken({id: user.id, username: user.username})
 
         return accessToken
     }

@@ -1,44 +1,48 @@
 import { loginSchema, registerSchema } from '../utils/validator/validator.js';
 import { generateRefreshToken, encryptPassword, generateAccessToken } from '../utils/auth/auth.js';
 import bcrypt from 'bcrypt'
+import { v4 as uuidv4 } from 'uuid';
 
 class AuthService {
     constructor(repo){
         this.repo = repo
     }
     
-    register = async (userData) => {
-        const { error } = registerSchema.validate(userData, {
+    register = async (userInput) => {
+        const { error } = registerSchema.validate(userInput, {
             abortEarly: true
         });
         if(error) {
-            throw new Error("cannot register")
+            throw Error(error.details[0].message)
         }
-        const existingEmail = await this.repo.findByEmail(userData.email )
+        const existingEmail = await this.repo.findByEmail(userInput.email )
     
         if (existingEmail) {
             throw new Error("email already registered")
         }
     
-        const existingUsername = await this.repo.findByUsername(userData.username)
+        const existingUsername = await this.repo.findByUsername(userInput.username)
     
         if (existingUsername) {
             throw new Error("Username already used")
         }
 
-        if (userData.password !== userData.confPassword) {
-            throw new Error("password isn't same")
+        if (userInput.password !== userInput.confPassword) {
+            throw new Error("password isn't matched")
         }
     
-        userData.password = await encryptPassword(userData.password)
+        userInput.password = await encryptPassword(userInput.password)
+
+        const id = uuidv4()
     
-        const accessToken = await generateAccessToken({id: userData._id})
+        const accessToken = await generateAccessToken({id, username: userInput.username})
+        
+        const refreshToken = await generateRefreshToken({id, username: userInput.username})
+        
+        const userData = await this.repo.add({userInput, refreshToken, id})
+        
+        console.log(userData)
 
-        const refreshToken = await generateRefreshToken({id: userData.id})
-
-        await this.repo.add({userData, refreshToken})
-
-    
         return {refreshToken, accessToken}
     }
     
@@ -61,9 +65,9 @@ class AuthService {
             throw new Error("invalid password")
         }
         
-        const accessToken = await generateAccessToken({id: user.id})
+        const accessToken = await generateAccessToken({id: user.id, username: userInput.username})
 
-        const refreshToken = await generateRefreshToken({id: user.id})
+        const refreshToken = await generateRefreshToken({id: user.id, username: userInput.username})
 
         await this.repo.update(user.id, { refresh_token: refreshToken })
         

@@ -3,9 +3,10 @@ import UserModel from "../model/user.js";
 class UserRepository {
     add = (req) => {
         const user = new UserModel({
-            username: req.userData.username,
-            password: req.userData.password,
-            email: req.userData.email,
+            _id: req.id,
+            username: req.userInput.username,
+            password: req.userInput.password,
+            email: req.userInput.email,
             refresh_token: req.refreshToken
         })
 

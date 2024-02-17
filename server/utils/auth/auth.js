@@ -10,14 +10,14 @@ const encryptPassword = async (password) => {
 
 }
 
-const generateAccessToken = (_id) => {
-    return jwt.sign(_id, process.env.ACCESS_TOKEN_SECRET, {
+const generateAccessToken = (payload) => {
+    return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: '30s',
     })
 }
 
-const generateRefreshToken = (_id) => {
-    return jwt.sign(_id, process.env.REFRESH_TOKEN_SECRET, {
+const generateRefreshToken = (payload) => {
+    return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
         expiresIn: '1d'
     })
 }
