@@ -14,9 +14,8 @@ const LoginForm = () => {
       await axios.post("http://localhost:3001/login", {
         username,
         password
-      });
+      }, { withCredentials: true });
       navigate("/dashboard");
-      console.log("berhasil")
     } catch (error) {
       if (error) {
         setError(error.response.data.message);

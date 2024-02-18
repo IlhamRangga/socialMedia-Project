@@ -39,9 +39,7 @@ class AuthService {
         
         const refreshToken = await generateRefreshToken({id, username: userInput.username})
         
-        const userData = await this.repo.add({userInput, refreshToken, id})
-        
-        console.log(userData)
+        await this.repo.add({userInput, refreshToken, id})
 
         return {refreshToken, accessToken}
     }

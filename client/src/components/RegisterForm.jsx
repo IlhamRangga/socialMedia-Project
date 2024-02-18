@@ -18,7 +18,7 @@ const RegisterForm = () => {
         email,
         password,
         confPassword,
-      });
+      }, { withCredentials: true });
       navigate("/dashboard");
     } catch (error) {
       if (error) {

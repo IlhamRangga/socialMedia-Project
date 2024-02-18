@@ -26,7 +26,6 @@ class AuthController {
             res.cookie('refreshToken', token.refreshToken, {
                 httpOnly: true,
                 maxAge: 24 * 60 * 60 * 1000,
-                sameSite: "none"
                 // secure: true
             })
             res.send({
@@ -53,7 +52,8 @@ class AuthController {
 
     getUser = async (req,res) => {
         try {
-            const user = await this.svc.getUser(req.body.username)
+            // const user = await this.svc.getUser(req.body.username)
+            const user = await this.svc.getUser("ilham")
             res.send({
                 status: "success",
                 user
