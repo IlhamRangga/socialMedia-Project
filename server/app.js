@@ -9,7 +9,6 @@ import tokenRoutes from "./routes/tokenRoutes.js";
 import cors from "cors"
 import TokenController from "./controller/tokenController.js";
 import TokenService from "./service/tokenService.js";
-import fileRoutes from "./routes/fileRoutes.js";
 
 connection()
 const app = express()
@@ -30,7 +29,6 @@ const tokenController = new TokenController(tokenService)
 
 authRoutes(app, authController)
 tokenRoutes(app, tokenController)
-fileRoutes(app)
 
 app.listen(3001, () => {
     console.log("listening on port 3001")
