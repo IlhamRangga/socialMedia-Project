@@ -1,12 +1,12 @@
-import PostModel from "../model/post";
+import PostModel from "../model/post.js";
 
 class PostRepository {
-    add = (req) => {
+    posting = (req) => {
         const post = new PostModel({
             _id: req.id,
-            username: req.decoded.username,
-            image: req.userInput.image,
-            url: req.userInput.url,
+            username: req.username,
+            image: req.image,
+            url: req.url,
         })
         return post.save()
     }

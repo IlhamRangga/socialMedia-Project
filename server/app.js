@@ -9,6 +9,10 @@ import tokenRoutes from "./routes/tokenRoutes.js";
 import cors from "cors"
 import TokenController from "./controller/tokenController.js";
 import TokenService from "./service/tokenService.js";
+import postRoutes from "./routes/postRoutes.js";
+import PostService from "./service/postService.js";
+import PostController from "./controller/postController.js";
+import PostRepository from "./repository/impl/post-repo.js";
 
 connection()
 const app = express()
@@ -27,8 +31,14 @@ const authController = new AuthController(authService)
 const tokenService = new TokenService(userRepo)
 const tokenController = new TokenController(tokenService)
 
+const postRepo = new PostRepository()
+
+const postService = new PostService(postRepo)
+const postController = new PostController(postService)
+
 authRoutes(app, authController)
 tokenRoutes(app, tokenController)
+postRoutes(app, postController)
 
 app.listen(3001, () => {
     console.log("listening on port 3001")

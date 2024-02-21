@@ -5,8 +5,12 @@ class PostController {
 
     posting = async (req,res) => {
         try {
-            const refreshToken = req.cookies.refreshToken
-            await this.svc.posting(refreshToken, req.body)
+            const token = req.header("Authorization")
+            const accessToken = token.split(" ")[1]
+            const userInput = req.file
+            const url = `${req.protocol}://${req.get("host")}/${req.file.path}`
+            console.log(req.file)
+            await this.svc.posting(accessToken, userInput, url)
             res.send({
                 "status": "success"
             })
@@ -15,3 +19,5 @@ class PostController {
         }
     }
 }
+
+export default PostController
