@@ -4,13 +4,16 @@ const post = new mongoose.Schema({
     _id: {
         type: String
     },
-    username: {
+    uploader: {
         type: String
     },
     image: {
         type: String
     },
     url: {
+        type: String
+    },
+    caption: {
         type: String
     }
 })

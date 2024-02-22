@@ -4,9 +4,10 @@ class PostRepository {
     posting = (req) => {
         const post = new PostModel({
             _id: req.id,
-            username: req.username,
+            uploader: req.uploader,
             image: req.image,
             url: req.url,
+            caption: req.caption
         })
         return post.save()
     }

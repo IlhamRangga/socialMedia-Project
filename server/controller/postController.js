@@ -7,10 +7,13 @@ class PostController {
         try {
             const token = req.header("Authorization")
             const accessToken = token.split(" ")[1]
-            const userInput = req.file
+            const file = req.file
+            const caption = req.body.caption
+            if(!file) {
+                throw new Error("file not found")
+            }
             const url = `${req.protocol}://${req.get("host")}/${req.file.path}`
-            console.log(req.file)
-            await this.svc.posting(accessToken, userInput, url)
+            await this.svc.posting(accessToken, url, caption, file)
             res.send({
                 "status": "success"
             })
