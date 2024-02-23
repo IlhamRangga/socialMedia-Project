@@ -1,10 +1,23 @@
+// import multer from "multer";
+// import upload from "../utils/fileUpload/upload.js";
+// const post = upload.single("image");
+
 class PostController {
     constructor (svc) {
         this.svc = svc
+        // this.post = post
     }
+
+
 
     posting = async (req,res) => {
         try {
+            // console.log(req.body)
+            // this.post(req, res, (err) => {
+            //     if (err instanceof multer.MulterError) {
+            //       res.send(err);
+            //     }
+            //   });
             const token = req.header("Authorization")
             const accessToken = token.split(" ")[1]
             const file = req.file
