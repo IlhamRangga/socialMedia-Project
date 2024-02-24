@@ -13,6 +13,10 @@ import postRoutes from "./routes/postRoutes.js";
 import PostService from "./service/postService.js";
 import PostController from "./controller/postController.js";
 import PostRepository from "./repository/impl/post-repo.js";
+import http from "http";
+import {Server} from "socket.io";
+
+
 
 connection()
 const app = express()
@@ -22,6 +26,8 @@ app.use(cors({
     origin: "http://localhost:3000",
     credentials: true
 }))
+const server = http.createServer(app)
+const io = new Server(server)
 
 const userRepo = new UserRepository()
 
@@ -39,6 +45,14 @@ const postController = new PostController(postService)
 authRoutes(app, authController)
 tokenRoutes(app, tokenController)
 postRoutes(app, postController)
+
+io.on('connection', (socket) => {
+    console.log('a user connected');
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+});
 
 app.listen(3001, () => {
     console.log("listening on port 3001")
