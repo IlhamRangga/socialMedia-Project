@@ -1,23 +1,36 @@
-import mongoose from "mongoose";
+import { Sequelize } from "sequelize"
+import db from "../../utils/db/connection"
 
-const User = new mongoose.Schema({
-_id: {
-    type: String,
-},
-username: {
-    type: String,
-},
-password: {
-    type: String,
-},
-email: {
-    type: String,
-},
-refresh_token: {
-    type: String,
-}
+const { DataTypes } = Sequelize
+
+const user = db.define("user",{
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true
+    },
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    refresh_token: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+},{
+    freezeTableName:true
 })
 
-const UserModel = mongoose.model("user", User)
+export default user
 
-export default UserModel
+(async()=> {
+    await db.sync()
+})()

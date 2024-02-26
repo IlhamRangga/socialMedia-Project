@@ -1,4 +1,4 @@
-import UserModel from "../model/user.js";
+import user from "../model/user.js";
 
 class UserRepository {
     add = (req) => {

@@ -91,6 +91,7 @@ class AuthService {
     }
     
     getUser = async (username) => {
+
         const user = await this.repo.findByUsername(username.toLowerCase())
     
         if(!user) {

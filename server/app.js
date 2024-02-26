@@ -1,5 +1,5 @@
 import express from "express";
-import connection from "./utils/mongoose/connection.js";
+import connection from "./utils/db/connection.js";
 import AuthService from "./service/authService.js";
 import AuthController from "./controller/authController.js";
 import authRoutes from "./routes/authRoutes.js";
