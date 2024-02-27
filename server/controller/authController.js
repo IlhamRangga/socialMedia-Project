@@ -52,8 +52,8 @@ class AuthController {
 
     getUser = async (req,res) => {
         try {
-            // const user = await this.svc.getUser(req.body.username)
-            const user = await this.svc.getUser("ilham")
+            const user = await this.svc.getUser(req.body.username)
+            // const user = await this.svc.getUser("ilham")
             res.send({
                 status: "success",
                 user

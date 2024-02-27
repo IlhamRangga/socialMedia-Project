@@ -1,42 +1,55 @@
-import user from "../model/user.js";
+import User from "../model/user.js";
+import { Op } from "sequelize";
 
 class UserRepository {
-    add = (req) => {
-        const user = new UserModel({
+    add = async (req) => {
+        return await User.create({
             _id: req.id,
             username: req.userInput.username,
             password: req.userInput.password,
             email: req.userInput.email,
             refresh_token: req.refreshToken
         })
-
-        return user.save()
     }
 
     findByUsername = (username) => {
-        return UserModel.findOne({
-            username: username.toLowerCase()
+        return User.findOne({
+            where: {
+                username: username.toLowerCase()
+            }
         })
     }
 
     findByRefreshToken = (refreshToken) => {
-        return UserModel.findOne({
-            refresh_token: refreshToken
+        return User.findOne({
+            where: {
+                refresh_token: refreshToken
+            }
         })
     }
 
     findById = (id) => {
-        return UserModel.findOne({
-            _id: id
+        return User.findOne({
+            where: {
+                _id: id
+            }
         })
     }
 
     findByEmail = (email) => {
-        return UserModel.findOne({email: email})
+        return User.findOne({
+            where: {
+                email
+            }
+        })
     }
 
     update = (id, data) => {
-        return UserModel.updateOne({_id: id},data)
+        return User.update(data, {
+            where: {
+                id 
+            }
+        })
     }
 
 }

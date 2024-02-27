@@ -1,9 +1,9 @@
 import { Sequelize } from "sequelize"
-import db from "../../utils/db/connection"
+import db from "../../utils/db/connection.js"
 
 const { DataTypes } = Sequelize
 
-const user = db.define("user",{
+const User = db.define("user",{
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -29,8 +29,16 @@ const user = db.define("user",{
     freezeTableName:true
 })
 
-export default user
+// (async () => {
+//     try {
+//         await db.sync();
+//         console.log("Tabel telah dibuat");
+//     } catch (error) {
+//         console.error("Gagal membuat tabel:", error);
+//     }
+// })();
 
-(async()=> {
-    await db.sync()
-})()
+// Export User separately
+export default User;
+
+

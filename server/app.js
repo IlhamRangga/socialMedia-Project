@@ -1,5 +1,4 @@
 import express from "express";
-import connection from "./utils/db/connection.js";
 import AuthService from "./service/authService.js";
 import AuthController from "./controller/authController.js";
 import authRoutes from "./routes/authRoutes.js";
@@ -9,16 +8,15 @@ import tokenRoutes from "./routes/tokenRoutes.js";
 import cors from "cors"
 import TokenController from "./controller/tokenController.js";
 import TokenService from "./service/tokenService.js";
-import postRoutes from "./routes/postRoutes.js";
-import PostService from "./service/postService.js";
-import PostController from "./controller/postController.js";
-import PostRepository from "./repository/impl/post-repo.js";
+// import postRoutes from "./routes/postRoutes.js";
+// import PostService from "./service/postService.js";
+// import PostController from "./controller/postController.js";
+// import PostRepository from "./repository/impl/post-repo.js";
 import http from "http";
 import {Server} from "socket.io";
 
 
 
-connection()
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
@@ -37,14 +35,14 @@ const authController = new AuthController(authService)
 const tokenService = new TokenService(userRepo)
 const tokenController = new TokenController(tokenService)
 
-const postRepo = new PostRepository()
+// const postRepo = new PostRepository()
 
-const postService = new PostService(postRepo)
-const postController = new PostController(postService)
+// const postService = new PostService(postRepo)
+// const postController = new PostController(postService)
 
 authRoutes(app, authController)
 tokenRoutes(app, tokenController)
-postRoutes(app, postController)
+// postRoutes(app, postController)
 
 io.on('connection', (socket) => {
     console.log('a user connected');
