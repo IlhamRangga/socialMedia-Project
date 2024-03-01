@@ -1,9 +1,7 @@
-import { Sequelize } from "sequelize";
-import db from "../../utils/db/connection";
+import {  DataTypes } from "sequelize";
+import db from "../../utils/db/connection.js";
 
-const { DataTypes } = Sequelize;
-
-const message = db.define("message", {
+const Message = db.define("message", {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -18,8 +16,10 @@ const message = db.define("message", {
         allowNull: false,
     },
     message: {
-        type: DataTypes.String,
+        type: DataTypes.STRING,
   },
 });
 
-export default message;
+await Message.sync()
+
+export default Message;

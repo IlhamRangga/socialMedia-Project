@@ -4,7 +4,7 @@ import { Op } from "sequelize";
 class UserRepository {
     add = async (req) => {
         return await User.create({
-            _id: req.id,
+            id: req.id,
             username: req.userInput.username,
             password: req.userInput.password,
             email: req.userInput.email,
@@ -31,7 +31,7 @@ class UserRepository {
     findById = (id) => {
         return User.findOne({
             where: {
-                _id: id
+                id
             }
         })
     }

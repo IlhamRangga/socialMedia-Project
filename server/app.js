@@ -10,8 +10,10 @@ import TokenController from "./controller/tokenController.js";
 import TokenService from "./service/tokenService.js";
 import http from "http";
 import {Server} from "socket.io";
-
-
+import messageRoutes from "./routes/messageRoutes.js";
+import MessageController from "./controller/messageController.js";
+import MessageService from "./service/messageService.js";
+import MessageRepository from "./repository/impl/message-repo.js";
 
 const app = express()
 app.use(express.json())
@@ -24,6 +26,7 @@ const server = http.createServer(app)
 const io = new Server(server)
 
 const userRepo = new UserRepository()
+const messageRepo = new MessageRepository()
 
 const authService = new AuthService(userRepo)
 const authController = new AuthController(authService)
@@ -31,8 +34,12 @@ const authController = new AuthController(authService)
 const tokenService = new TokenService(userRepo)
 const tokenController = new TokenController(tokenService)
 
+const messageService = new MessageService(messageRepo)
+const messageController = new MessageController(messageService)
+
 authRoutes(app, authController)
 tokenRoutes(app, tokenController)
+messageRoutes(app, messageController)
 
 io.on('connection', (socket) => {
     console.log('a user connected');

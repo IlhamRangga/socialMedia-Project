@@ -1,7 +1,5 @@
-import { Sequelize } from "sequelize"
+import {  DataTypes } from "sequelize";
 import db from "../../utils/db/connection.js"
-
-const { DataTypes } = Sequelize
 
 const User = db.define("user",{
     id: {
@@ -22,22 +20,14 @@ const User = db.define("user",{
     },
     refresh_token: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     }
 },{
     freezeTableName:true
 })
 
-// (async () => {
-//     try {
-//         await db.sync();
-//         console.log("Tabel telah dibuat");
-//     } catch (error) {
-//         console.error("Gagal membuat tabel:", error);
-//     }
-// })();
+await User.sync();
 
-// Export User separately
 export default User;
 
 
