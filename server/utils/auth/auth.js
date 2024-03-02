@@ -12,7 +12,7 @@ const encryptPassword = async (password) => {
 
 const generateAccessToken = (payload) => {
     return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: '20s',
+        expiresIn: '1d',
     })
 }
 

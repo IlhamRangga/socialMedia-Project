@@ -3,17 +3,18 @@ class MessageController {
         this.svc = svc
     }
 
-    sendMessage = (req,res) => {
+    sendMessage = async(req,res) => {
         try {
             const message = req.body.message
             const receiverId = req.params.id
-            console.log(message)
-            console.log(receiverId)
+            const senderId = req.user.id
+            await this.svc.sendMessage({receiverId, senderId, message})
             res.send({
-                status: "success"
+                status: "success",
+                receiverId
             })
         } catch (error) {
-            
+            res.send({error: error.message})
         }
     }
 }

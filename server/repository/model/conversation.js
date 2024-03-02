@@ -1,7 +1,5 @@
 import {  DataTypes } from "sequelize";
-import db from "../../utils/db/connection";
-
-
+import db from "../../utils/db/connection.js";
 
 const Conversation = db.define("conversation",{
     id: {
@@ -9,13 +7,15 @@ const Conversation = db.define("conversation",{
         primaryKey: true,
         autoIncrement: true,
     },
-    participantsIds: {
+    participantIds: {
         type: DataTypes.ARRAY(DataTypes.UUID),
-        allowNull: false
+        allowNull: false,
+        defaultValue: []
     },
-    messagesIds: {
-        type: DataTypes.ARRAY(DataTypes.UUID),
-        allowNull: true
+    messageIds: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        allowNull: true,
+        defaultValue: []
     }
 })
 
