@@ -29,7 +29,4 @@ const User = db.define("user",{
 
 await User.sync();
 
-
 export default User;
-
-

@@ -14,7 +14,34 @@ class MessageController {
                 receiverId
             })
         } catch (error) {
-            res.send({error: error.message})
+            res.send({error: error.message,})
+        }
+    }
+
+    getMessage = async(req,res) => {
+        try {
+            const receiverId = req.params.id
+            const senderId = req.user.id
+            const message = await this.svc.getMessage({receiverId, senderId})
+            res.send({
+                status: "success",
+                message
+            })
+        } catch (error) {
+            res.send({error: error.message,})
+        }
+    }
+
+    getUserWeChat = async(req,res) => {
+        try {
+            const id = req.user.id
+            const user = await this.svc.getUserWeChat(id)
+            res.send({
+                status: "success",
+                user
+            })
+        } catch (error) {
+            res.send({error: error.message,})
         }
     }
 }

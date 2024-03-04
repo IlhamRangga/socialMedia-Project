@@ -85,9 +85,7 @@ class AuthService {
             throw new Error("Token invalid")
         }
 
-        await this.repo.update(user.id , { refresh_token: null })
-
-        return
+        this.repo.update(user.id , { refresh_token: null })
     }
     
     getUser = async (username) => {

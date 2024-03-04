@@ -12,40 +12,53 @@ class UserRepository {
         })
     }
 
-    findByUsername = (username) => {
-        return User.findOne({
+    findByUsername = async(username) => {
+        return await User.findOne({
             where: {
                 username: username.toLowerCase()
             }
         })
     }
 
-    findByRefreshToken = (refreshToken) => {
-        return User.findOne({
+    findByRefreshToken = async(refreshToken) => {
+        return await User.findOne({
             where: {
                 refresh_token: refreshToken
             }
         })
     }
 
-    findById = (id) => {
-        return User.findOne({
+    findAllById = async (id) => {
+        const datas =  await User.findAll({
+            where: {
+                id: {
+                    [Op.in]: id
+                }
+            }
+        })
+        const user = datas.map(user => ({id: user.dataValues.id, username: user.dataValues.username, email: user.dataValues.email}))
+
+        return user
+    }
+
+    findOneById = async (id) => {
+        return await User.findOne({
             where: {
                 id
             }
         })
     }
 
-    findByEmail = (email) => {
-        return User.findOne({
+    findByEmail = async (email) => {
+        return await User.findOne({
             where: {
                 email
             }
         })
     }
 
-    update = (id, data) => {
-        return User.update(data, {
+    update = async (id, data) => {
+        return await User.update(data, {
             where: {
                 id 
             }

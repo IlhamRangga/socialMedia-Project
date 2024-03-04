@@ -1,4 +1,5 @@
 import Conversation from "../model/conversation.js"
+import { Op } from "sequelize"
 
 class ConversationRepository {
     findByParticipants = async(datas) => {
@@ -10,16 +11,30 @@ class ConversationRepository {
     }
 
     updateByParticipants = async(datas) => {
-        return await Conversation.update({messageIds : [datas.messageId]}, {
+        return await Conversation.update({messageIds : datas.messageId}, {
             where: {
                 participantIds: [datas.senderId, datas.receiverId]
             }
         })
     }
 
-    createConversation = async(datas) => {
-        return await Conversation.create({
-            participantIds: [datas.senderId, datas.receiverId],
+    findOrCreateConversation = async(datas) => {
+        return await Conversation.findOrCreate({
+            where: { participantIds: [datas.senderId, datas.receiverId]},
+            defaults: {
+                messageIds: [datas.messageId],
+                participantIds: [datas.senderId, datas.receiverId]
+            }
+        })
+    }
+
+    findBySenderId = async(senderId) => {
+        return await Conversation.findAll({
+            where: {
+                participantIds: {
+                    [Op.contains]: [senderId]
+                }
+            }
         })
     }
 }
