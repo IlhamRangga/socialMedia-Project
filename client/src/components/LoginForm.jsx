@@ -1,21 +1,17 @@
-import React, {useState} from "react";
-import axios from "axios"
+import React,{useState} from 'react'
+import axios from 'axios'
 
-const RegisterForm = () => {
-	const [username, setUsername] = useState("")
-	const [email, setEmail] = useState("")
+const LoginForm = () => {
+    const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
-	const [confPassword, setConfPassword] = useState("")
 
 
-	const register = async(e) => {
+	const login = async(e) => {
 		e.preventDefault()
 		try {
-			const response =await axios.post("http://localhost:3001/register", {
+			const response =await axios.post("http://localhost:3001/login", {
 				username,
-				email,
-				password,
-				confPassword
+				password
 			},{ withCredentials: true })
 			console.log(response.data)
 		} catch (error) {
@@ -30,7 +26,7 @@ const RegisterForm = () => {
           Sign Up <span className="text-indigo-500"> Social Media</span>
         </h1>
 
-        <form onSubmit={register}>
+        <form onSubmit={login}>
           <div>
             <label className="label p-2">
               <span className="text-base label-text">Username</span>
@@ -43,20 +39,6 @@ const RegisterForm = () => {
 			onChange={(e) => setUsername(e.target.value)}
 			required
 			/>
-          </div>
-
-          <div>
-            <label className="label p-2 ">
-              <span className="text-base label-text">Email</span>
-            </label>
-            <input 
-			type="email" 
-			placeholder="Email"
-			className="w-full input input-bordered h-10" 
-			value={email} 
-			onChange={(e) => setEmail(e.target.value)}
-			required
-			 />
           </div>
 
           <div>
@@ -74,26 +56,12 @@ const RegisterForm = () => {
           </div>
 
           <div>
-            <label className="label">
-              <span className="text-base label-text">Confirm Password</span>
-            </label>
-            <input 
-			type="password" 
-			placeholder="Confirm Password" 
-			className="w-full input input-bordered h-10" 
-			value={confPassword} 
-			onChange={(e) => setConfPassword(e.target.value)}
-			required
-			/>
-          </div>
-
-          <div>
-            <button className="btn btn-block btn-sm mt-6 btn-primary">Sign Up</button>
+            <button className="btn btn-block btn-sm mt-6 btn-primary">Login</button>
           </div>
         </form>
       </div>
     </div>
   );
-};
+}
 
-export default RegisterForm;
+export default LoginForm
