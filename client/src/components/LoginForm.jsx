@@ -1,23 +1,17 @@
 import React,{useState} from 'react'
-import axios from 'axios'
+import { Link } from 'react-router-dom'
+import useLogin from '../hooks/useLogin'
 
 const LoginForm = () => {
-    const [username, setUsername] = useState("")
+  const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
 
-
-	const login = async(e) => {
-		e.preventDefault()
-		try {
-			const response =await axios.post("http://localhost:3001/login", {
-				username,
-				password
-			},{ withCredentials: true })
-			console.log(response.data)
-		} catch (error) {
-			console.log(error)
-		}
-	}
+  const {loading,login} = useLogin()
+  
+  const handleSubmit = async(e) => {
+    e.preventDefault()
+    await login({username,password})
+  }
 
   return (
     <div className="flex items-center justify-center min-w-80 mx-auto bg-gradient-to-br from-sky-500 to-fuchsia-500 h-screen">
@@ -26,7 +20,7 @@ const LoginForm = () => {
           Sign Up <span className="text-indigo-500"> Social Media</span>
         </h1>
 
-        <form onSubmit={login}>
+        <form onSubmit={handleSubmit}>
           <div>
             <label className="label p-2">
               <span className="text-base label-text">Username</span>
@@ -55,9 +49,11 @@ const LoginForm = () => {
 			/>
           </div>
 
+
           <div>
-            <button className="btn btn-block btn-sm mt-6 btn-primary">Login</button>
+            <button className="btn btn-block btn-sm mt-6 mb-3 btn-primary">Login</button>
           </div>
+          <Link to="/register">Don't have account?</Link>
         </form>
       </div>
     </div>

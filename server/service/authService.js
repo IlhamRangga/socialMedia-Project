@@ -41,7 +41,7 @@ class AuthService {
         
         await this.repo.add({userInput, refreshToken, id})
 
-        return {refreshToken, accessToken}
+        return {refreshToken, accessToken, id}
     }
     
     login = async (userInput) => {
@@ -69,7 +69,7 @@ class AuthService {
 
         await this.repo.update(user.id, { refresh_token: refreshToken })
         
-        return {refreshToken, accessToken}
+        return {refreshToken, accessToken, id: user.id}
     }
 
     logout = async (token) => {

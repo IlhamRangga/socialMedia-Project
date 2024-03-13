@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-import axios from "axios"
+import { Link } from "react-router-dom";
+import useRegister from "../hooks/useRegister.js";
 
 const RegisterForm = () => {
 	const [username, setUsername] = useState("")
@@ -7,20 +8,11 @@ const RegisterForm = () => {
 	const [password, setPassword] = useState("")
 	const [confPassword, setConfPassword] = useState("")
 
+	const {loading,register} = useRegister()
 
-	const register = async(e) => {
+	const handleSubmit = async(e) => {
 		e.preventDefault()
-		try {
-			const response =await axios.post("http://localhost:3001/register", {
-				username,
-				email,
-				password,
-				confPassword
-			},{ withCredentials: true })
-			console.log(response.data)
-		} catch (error) {
-			console.log(error)
-		}
+		await register({username, email, password, confPassword})
 	}
 
   return (
@@ -30,7 +22,7 @@ const RegisterForm = () => {
           Sign Up <span className="text-indigo-500"> Social Media</span>
         </h1>
 
-        <form onSubmit={register}>
+        <form onSubmit={handleSubmit}>
           <div>
             <label className="label p-2">
               <span className="text-base label-text">Username</span>
@@ -88,8 +80,10 @@ const RegisterForm = () => {
           </div>
 
           <div>
-            <button className="btn btn-block btn-sm mt-6 btn-primary">Sign Up</button>
+            <button className="btn btn-block btn-sm mt-6 mb-3 btn-primary">Sign Up</button>
           </div>
+		  <Link to="/login">Already have account?</Link>
+
         </form>
       </div>
     </div>

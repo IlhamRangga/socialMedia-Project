@@ -5,15 +5,16 @@ class AuthController {
 
     register = async (req,res) => {
         try {
-            const token = await this.svc.register(req.body)
-            res.cookie('refreshToken', token.refreshToken, {
+            const data = await this.svc.register(req.body)
+            res.cookie('refreshToken', data.refreshToken, {
                 httpOnly: true,
                 maxAge: 24 * 60 * 60 * 1000,
                 // secure: true
             })
             res.send({
                 status: "success",
-                token: token.accessToken
+                token: data.accessToken,
+                id: data.id
             })
         } catch (error) {
             res.status(500).send({message: error.message})
@@ -22,15 +23,16 @@ class AuthController {
 
     login = async (req,res) => {
         try {
-            const token = await this.svc.login(req.body)
-            res.cookie('refreshToken', token.refreshToken, {
+            const data = await this.svc.login(req.body)
+            res.cookie('refreshToken', data.refreshToken, {
                 httpOnly: true,
                 maxAge: 24 * 60 * 60 * 1000,
                 // secure: true
             })
             res.send({
                 status: "success",
-                token: token.accessToken
+                token: data.accessToken,
+                id: data.id
             })
         } catch (error) {
             res.status(500).send({message: error.message})
@@ -53,7 +55,6 @@ class AuthController {
     getUser = async (req,res) => {
         try {
             const user = await this.svc.getUser(req.body.username)
-            // const user = await this.svc.getUser("ilham")
             res.send({
                 status: "success",
                 user
