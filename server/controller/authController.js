@@ -13,6 +13,7 @@ class AuthController {
             })
             res.send({
                 status: "success",
+                username: data.username,
                 token: data.accessToken,
                 id: data.id
             })
@@ -31,6 +32,7 @@ class AuthController {
             })
             res.send({
                 status: "success",
+                username: data.username,
                 token: data.accessToken,
                 id: data.id
             })
@@ -54,7 +56,8 @@ class AuthController {
 
     getUser = async (req,res) => {
         try {
-            const user = await this.svc.getUser(req.body.username)
+            // const user = await this.svc.getUser(req.body.username)
+            const user = await this.svc.getUser("ilham")
             res.send({
                 status: "success",
                 user

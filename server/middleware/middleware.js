@@ -3,6 +3,7 @@ import { verifyAccessToken } from "../utils/auth/auth.js";
 const authorization = (req, res, next) => {
   try {
     const token = req.header("Authorization");
+    // console.log(token)
     if (!token) {
       return res.status(401).json({ error: "Token not found" });
     }
