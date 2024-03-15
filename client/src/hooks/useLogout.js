@@ -13,10 +13,9 @@ const useLogout = () => {
         setLoading(true)
         try {
             const response = await axios.delete("http://localhost:3001/logout",{ withCredentials: true })
-
-            localStorage.removeItem("user")
             setAuthUser(null)
             toast.success(response.data.status)
+            localStorage.removeItem("authenticated")
             navigate("/login")
         } catch (error) {
             toast.error(error.response.data.message)

@@ -1,9 +1,9 @@
-import authorization from "../middleware/middleware.js";
+import authMiddleware from "../middleware/AuthMiddleware.js"
 
 const messageRoutes = (app, messageController) => {
-    app.post("/send/:id", authorization, messageController.sendMessage)
-    app.get("/get/:id", authorization, messageController.getMessage)
-    app.get("/chat/user", authorization, messageController.getUserWeChat)
+    app.post("/send/:id", authMiddleware, messageController.sendMessage)
+    app.get("/get/:id", authMiddleware, messageController.getMessage)
+    app.get("/chat/user", authMiddleware, messageController.getUserWeChat)
 }
 
 export default messageRoutes

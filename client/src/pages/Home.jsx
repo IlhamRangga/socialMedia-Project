@@ -4,19 +4,29 @@ import useToken from '../hooks/useToken'
 import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
-  const {axiosJWT} = useToken()
+  const {axiosJWT, generateToken, token} = useToken()
   const {loading,logout} = useLogout()
+
+  useEffect(() => {
+    const fetch = async() => {
+      await generateToken()
+    } 
+    fetch()
+  }, [])
 
   const navigate = useNavigate()
   
   const clickButton = async() => {
     try {
-      const response = await axiosJWT.get("http://localhost:3001/getUser",{ withCredentials: true })
-      console.log(response)
+      const response = await axiosJWT.get("http://localhost:3001/getUser", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      },
+      { withCredentials: true })
       return response.data.user
     } catch (error) {
       navigate("/login")
-      console.log(error)
     }
   }
 

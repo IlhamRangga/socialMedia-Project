@@ -28,12 +28,14 @@ const useLogin = () => {
 				username,
 				password
 			},{ withCredentials: true })
-            localStorage.setItem("user", JSON.stringify(response.data))
-            setAuthUser(response)
+            setAuthUser(true)
+            localStorage.setItem("authenticated", true)
             toast.success(response.data.status)
             navigate("/")
         } catch (error) {
             toast.error(error.response.data.message)
+            localStorage.removeItem("authenticated")
+
         } finally {
             setLoading(false)
         }

@@ -4,7 +4,7 @@ class TokenController {
     }
     
     refreshToken = async (req,res) => {
-        try {
+        try {  
             const refreshToken = req.cookies.refreshToken
             const accessToken = await this.svc.refreshToken(refreshToken)
             res.send({
@@ -12,7 +12,8 @@ class TokenController {
                 accessToken,
             })
         } catch (error) {
-            res.send({error: error.message})
+            // console.log(error.statusCode)
+            res.status(error.statusCode).json({message: error.message})
         }
     }
 }

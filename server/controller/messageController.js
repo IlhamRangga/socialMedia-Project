@@ -14,7 +14,7 @@ class MessageController {
                 receiverId
             })
         } catch (error) {
-            res.send({error: error.message,})
+            res.status(error.statusCode).send({message: error.message})
         }
     }
 
@@ -28,7 +28,7 @@ class MessageController {
                 message
             })
         } catch (error) {
-            res.send({error: error.message,})
+            res.status(error.statusCode).send({message: error.message})
         }
     }
 
@@ -41,7 +41,7 @@ class MessageController {
                 user
             })
         } catch (error) {
-            res.send({error: error.message,})
+            res.status(error.statusCode).send({message: error.message})
         }
     }
 }

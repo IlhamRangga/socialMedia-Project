@@ -1,5 +1,6 @@
 import UserRepository from "../repository/impl/user-repo.js"
 import ConversationRepository from "../repository/impl/conversation-repo.js"
+import BaseError from "../utils/error/baseError.js"
 
 class MessageService {
     constructor (repo) {
@@ -11,13 +12,13 @@ class MessageService {
     sendMessage = async (datas) => {
         console.log(datas)
         if (!datas.message) {
-            throw new Error("message must be filled")
+            throw new BaseError(400,"message must be filled")
         }
 
         const receiver = await this.user.findOneById(datas.receiverId)
         console.log(datas.receiverId)
         if (!receiver) {
-            throw new Error("receiver not found")
+            throw new BaseError(404,"receiver not found")
         }
 
         const message = await this.message.sendMessage(datas)
@@ -37,13 +38,13 @@ class MessageService {
     getMessage = async(datas) => {
         const receiver = this.user.findOneById(datas.receiverId)
         if (!receiver) {
-            throw new Error("receiver not found")
+            throw new BaseError(404,"receiver not found")
         }
 
         const conversation = await this.conversation.findByParticipants(datas)
 
         if(!conversation) {
-            throw new Error("conversation not found")
+            throw new BaseError(404,"conversation not found")
         }
 
         const message = await this.message.findById(conversation.dataValues.messageIds)
@@ -57,7 +58,7 @@ class MessageService {
         const conversation = await this.conversation.findBySenderId(senderId)
 
         if(!conversation) {
-            throw new Error("user not found")
+            throw new BaseError(404,"user not found")
         }
 
         const receiverId = conversation.map(user => user.participantIds[1])

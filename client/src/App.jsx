@@ -7,13 +7,17 @@ import { useAuthContext } from "./context/AuthContext"
 
 
 function App() {
-  const { authUser} = useAuthContext()
+  const { authUser } = useAuthContext()
+  console.log(authUser)
   return (
     <>
     <Router>
       <Routes>
+        {/* <Route path="/" element={<Home/>}/> */}
         <Route path="/" element={authUser ? <Home/> : <Navigate to="/login" />}/>
+        {/* <Route path="/register" element={<Register/>}/> */}
         <Route path="/register" element={authUser ? <Navigate to="/" /> : <Register/>}/>
+        {/* <Route path="/login" element={<Login/>}/> */}
         <Route path="/login" element={authUser ? <Navigate to="/" /> : <Login/>}/>
       </Routes>
       <Toaster  

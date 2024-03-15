@@ -14,10 +14,12 @@ import messageRoutes from "./routes/messageRoutes.js";
 import MessageController from "./controller/messageController.js";
 import MessageService from "./service/messageService.js";
 import MessageRepository from "./repository/impl/message-repo.js";
+import errorMiddleware from "./middleware/errorMiddleware.js";
 
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
+app.use(errorMiddleware)
 app.use(cors({
     origin: "http://localhost:3000",
     credentials: true

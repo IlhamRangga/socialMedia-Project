@@ -37,13 +37,14 @@ const useRegister = () => {
 				password,
 				confPassword
 			},{ withCredentials: true })
-
-            localStorage.setItem("user", JSON.stringify(response.data))
-            setAuthUser(response)
+            setAuthUser(true)
             toast.success(response.data.status)
+            localStorage.setItem("authenticated", true)
             navigate("/")
         } catch (error) {
             toast.error(error.response.data.message)
+            localStorage.removeItem("authenticated")
+
         } finally {
             setLoading(false)
         }

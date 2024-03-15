@@ -1,9 +1,9 @@
-import authorization from "../middleware/middleware.js"
+import authMiddleware from "../middleware/AuthMiddleware.js"
 
 const authRoutes = (app, authController) => {
     app.post("/register", authController.register)
     app.post("/login", authController.login)
-    app.get("/getUser",authorization, authController.getUser)
+    app.get("/getUser",authMiddleware, authController.getUser)
     app.delete("/logout", authController.logout)
 }
 

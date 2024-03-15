@@ -18,7 +18,7 @@ class AuthController {
                 id: data.id
             })
         } catch (error) {
-            res.status(500).send({message: error.message})
+            res.status(error.statusCode).send({message: error.message})
         }
     }
 
@@ -37,7 +37,7 @@ class AuthController {
                 id: data.id
             })
         } catch (error) {
-            res.status(500).send({message: error.message})
+            res.status(error.statusCode).send({message: error.message})        
         }
     }
 
@@ -50,7 +50,7 @@ class AuthController {
                 status: "success"
             })
         } catch (error) {
-            res.status(500).send({message: error.message})
+            res.status(error.statusCode).send({message: error.message})
         }
     }
 
@@ -63,7 +63,7 @@ class AuthController {
                 user
             })
         } catch (error) {
-            res.send({message: error.message})
+            res.status(error.statusCode).send({message: error.message})
         }
     }
 }
