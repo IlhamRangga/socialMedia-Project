@@ -32,7 +32,7 @@ class MessageService {
 
                 await this.conversation.updateByParticipants({messageId: updatedMessageIds, senderId: datas.senderId, receiverId: datas.receiverId})
         }
-
+        
     }
 
     getMessage = async(datas) => {
@@ -57,15 +57,15 @@ class MessageService {
         
         const conversation = await this.conversation.findBySenderId(senderId)
 
-        if(!conversation) {
-            throw new BaseError(404,"user not found")
+        if(conversation) {
+            const receiverId = conversation.map(user => user.participantIds[1])
+    
+            const receiverDatas = await this.user.findAllById(receiverId)
+    
+            return receiverDatas
         }
 
-        const receiverId = conversation.map(user => user.participantIds[1])
-
-        const receiverDatas = await this.user.findAllById(receiverId)
-
-        return receiverDatas
+        return
     }
 }
 

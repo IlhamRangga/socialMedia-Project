@@ -19,6 +19,7 @@ const useToken = () => {
       localStorage.setItem("authenticated", true);
     } catch (error) {
       setAuthUser(null);
+      localStorage.removeItem("authenticated");
       navigate("/");
     }
   };
