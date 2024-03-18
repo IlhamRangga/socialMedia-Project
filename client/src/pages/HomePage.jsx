@@ -2,8 +2,9 @@ import React, { useEffect } from 'react'
 import useLogout from '../hooks/useLogout'
 import useToken from '../hooks/useToken'
 import { useNavigate } from 'react-router-dom'
+import Navbar from '../components/Navbar'
 
-const Home = () => {
+const HomePage = () => {
   const {axiosJWT, generateToken, token} = useToken()
   const {loading,logout} = useLogout()
 
@@ -33,8 +34,9 @@ const Home = () => {
   return (
     <>
     <button onClick={clickButton}>halos</button>
+    <Navbar/>
     </>
   )
 }
 
-export default Home
+export default HomePage
