@@ -20,8 +20,8 @@ function App() {
         <Route path="/register" element={authUser ? <Navigate to="/" /> : <RegisterPage/>}/>
         {/* <Route path="/login" element={<Login/>}/> */}
         <Route path="/login" element={authUser ? <Navigate to="/" /> : <LoginPage/>}/>
-        <Route path="/message" element={<MessagePage />}/>
-        <Route path="/conversation" element={<ConversationPage/>}/>
+        <Route path="/message" element={<ConversationPage/>}/>
+        <Route path="/conversation" element={<MessagePage/>}/>
       </Routes>
       <Toaster  
       position="bottom-right"

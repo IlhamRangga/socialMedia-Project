@@ -52,7 +52,7 @@ class MessageService {
         return message
     }
 
-    getUserWeChat = async(id) => {
+    getConversation = async(id) => {
         const senderId = id
         
         const conversation = await this.conversation.findBySenderId(senderId)

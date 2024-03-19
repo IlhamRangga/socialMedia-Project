@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Contact = () => {
+const Contact = ({username, }) => {
   return (
     <>
       <Link to="/conversation" className="flex gap-2 rounded flex-row mt-1 p-1 hover:bg-slate-300 cursor-pointer">
@@ -14,8 +14,8 @@ const Contact = () => {
         </div>
         <div className="flex flex-row min-w-0">
           <div className="overflow-hidden">
-            <h1 className="text-base font-medium truncate">ilham rangga kurniawan aisdiajsdioajsio</h1>
-            <h1 className="text-s truncate">halo bagn ajdsadoijasiodjasiojdioasjdoiasjidjasoidasiodj</h1>
+            <h1 className="text-base font-medium truncate">{username}</h1>
+            {/* <h1 className="text-s truncate">halo </h1> */}
           </div>
         </div>
       </Link>

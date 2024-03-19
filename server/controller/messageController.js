@@ -32,10 +32,11 @@ class MessageController {
         }
     }
 
-    getUserWeChat = async(req,res) => {
+    getConversation = async(req,res) => {
         try {
             const id = req.user.id
-            const user = await this.svc.getUserWeChat(id)
+            const user = await this.svc.getConversation(id)
+            // const user = await this.svc.getConversation("0feca021-b3f6-4615-9b36-55be311c8034")
             res.send({
                 status: "success",
                 user

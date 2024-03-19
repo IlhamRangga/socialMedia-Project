@@ -1,34 +1,42 @@
-import React from "react";
-import ConversationHeader from "../components/ConversationHeader";
-import Message from "../components/Message";
-import MessageInput from "../components/MessageInput";
+import React, { useEffect } from "react";
+import Contact from "../components/Contact";
+import Navbar from "../components/Navbar";
+import ContactHeader from "../components/ContactHeader";
+import useConversation from "../hooks/useConversation";
 
 const ConversationPage = () => {
+  const {getConversation, conversations} = useConversation()
+
+  useEffect(() => {
+    getConversation()
+  },[])
+
   return (
     <>
-      <ConversationHeader />
-      <div className="mb-16">
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
+      <ContactHeader />
+      <div className="mt-12">
+        {conversations.map((conversation) => (
+          <Contact 
+            key={conversation.id}
+            username={conversation.username}
+          />
+        ))}
+        {/* <Contact />
+        <Contact />
+        <Contact />
+        <Contact />
+        <Contact />
+        <Contact />
+        <Contact />
+        <Contact />
+        <Contact />
+        <Contact />
+        <Contact />
+        <Contact />
+        <Contact />
+        <Contact /> */}
       </div>
-      <MessageInput />
+      <Navbar />
     </>
   );
 };

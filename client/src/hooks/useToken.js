@@ -6,14 +6,12 @@ import { useAuthContext } from "../context/AuthContext";
 
 const useToken = () => {
   const [token, setToken] = useState("");
-  const [expire, setExpire] = useState("");
   const { setAuthUser } = useAuthContext();
   const navigate = useNavigate();
 
   const generateToken = async () => {
     try {
       const response = await axios.get("http://localhost:3001/token", { withCredentials: true });
-      console.log(response);
       setToken(response.data.accessToken);
       setAuthUser(true);
       localStorage.setItem("authenticated", true);
@@ -29,7 +27,6 @@ const useToken = () => {
   axiosJWT.interceptors.request.use(
     async (config) => {
       const response = await axios.get("http://localhost:3001/token", { withCredentials: true });
-
       config.headers.Authorization = `Bearer ${response.data.accessToken}`;
       setAuthUser(true);
       setToken(response.data.accessToken);

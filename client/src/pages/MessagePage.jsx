@@ -1,31 +1,36 @@
-import React from 'react'
-import Contact from '../components/Contact';
-import Navbar from '../components/Navbar';
-import ContactHeader from '../components/ContactHeader';
+import React from "react";
+import ConversationHeader from "../components/ConversationHeader";
+import Message from "../components/Message";
+import MessageInput from "../components/MessageInput";
 
 const MessagePage = () => {
-    return (
-      <>
-      <ContactHeader/>
-      <Contact />
-      <Contact />
-      <Contact />
-      <Contact />
-      <Contact />
-      <Contact />
-      <Contact />
-      <Contact />
-      <Contact />
-      <Contact />
-      <Contact />
-      <Contact />
-      <Contact />
-      <Contact />
-      <Contact />
-      <Navbar />
-      </>
-    );
-  };
+  return (
+    <>
+      <ConversationHeader />
+      <div className="mb-16">
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+      </div>
+      <MessageInput />
+    </>
+  );
+};
 
-export default MessagePage
-
+export default MessagePage;
