@@ -58,9 +58,11 @@ class UserRepository {
     }
 
     update = async (id, data) => {
+        console.log(id)
+        console.log(data)
         return await User.update(data, {
             where: {
-                id 
+                id: id
             }
         })
     }

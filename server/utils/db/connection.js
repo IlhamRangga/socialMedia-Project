@@ -5,7 +5,8 @@ dotenv.config()
 
 const db = new Sequelize("socialMedia","postgres","12345", {
     host: "localhost",
-    dialect: "postgres"
+    dialect: "postgres",
+    logging: false
 } )
 
 export default db

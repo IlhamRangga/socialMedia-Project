@@ -4,10 +4,11 @@ import useToken from "./useToken";
 const useConversation = () => {
   const [loading, setLoading] = useState(false);
   const [conversations, setConversation] = useState([]);
-  const {axiosJWT, token} = useToken()
+  const [messages, setMessages] = useState([])
+  const { axiosJWT, token } = useToken();
 
   const getConversation = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const response = await axiosJWT.get("http://localhost:3001/message/conversation/user", {
         headers: {
@@ -15,17 +16,34 @@ const useConversation = () => {
         },
         withCredentials: true,
       });
-      console.log(response.data.user);
-      setConversation(response.data.user)
+      setConversation(response.data.conversation);
     } catch (error) {
-        setLoading(false)
+      setLoading(false);
       console.error("Error fetching conversation:", error);
     } finally {
-        setLoading(false)
+      setLoading(false);
     }
   };
 
-  return { getConversation, conversations };
+  const getMessage = async ({id}) => {
+    if(id === "ai") return
+    setLoading(true)
+    try {
+      const response = await axiosJWT.get(`http://localhost:3001/message/get/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      });
+      console.log(response)
+      setMessages(response)
+    } catch (error) {
+      setLoading(false)
+      console.error(error)
+    }
+  }
+
+  return { getConversation, conversations, getMessage, messages };
 };
 
 export default useConversation;

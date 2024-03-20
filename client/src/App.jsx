@@ -3,8 +3,8 @@ import RegisterPage from "./pages/RegisterPage"
 import { Toaster } from "react-hot-toast"
 import { useAuthContext } from "./context/AuthContext"
 import HomePage from "./pages/HomePage"
+import ContactPage from "./pages/ContactPage"
 import ConversationPage from "./pages/ConversationPage"
-import MessagePage from "./pages/MessagePage"
 import LoginPage from "./pages/LoginPage"
 
 
@@ -20,8 +20,8 @@ function App() {
         <Route path="/register" element={authUser ? <Navigate to="/" /> : <RegisterPage/>}/>
         {/* <Route path="/login" element={<Login/>}/> */}
         <Route path="/login" element={authUser ? <Navigate to="/" /> : <LoginPage/>}/>
-        <Route path="/message" element={<ConversationPage/>}/>
-        <Route path="/conversation" element={<MessagePage/>}/>
+        <Route path="/contact" element={<ContactPage/>}/>
+        <Route path="/conversation/:id" element={<ConversationPage/>}/>
       </Routes>
       <Toaster  
       position="bottom-right"

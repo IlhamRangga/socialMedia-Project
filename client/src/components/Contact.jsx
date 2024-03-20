@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Contact = ({username, }) => {
+const Contact = ({username, id}) => {
   return (
     <>
-      <Link to="/conversation" className="flex gap-2 rounded flex-row mt-1 p-1 hover:bg-slate-300 cursor-pointer">
+      <Link to={`/conversation/${id}`} className="flex gap-2 rounded flex-row mt-1 p-1 hover:bg-slate-300 cursor-pointer">
         <div className="flex items-center justify-center">
           <div className="avatar online max-w-14">
             <div className="w-14 rounded-full">
-              <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+              <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" alt={`${username} profile picture`} />
             </div>
           </div>
         </div>

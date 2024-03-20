@@ -18,7 +18,7 @@ const Navbar = () => {
           <Link>
             <IoCloudUploadOutline className="w-8 h-auto"/>
           </Link>
-          <Link to="/message">
+          <Link to="/contact">
             <TbMessageCircle2 className="w-8 h-auto"/>
           </Link>
           <Link>

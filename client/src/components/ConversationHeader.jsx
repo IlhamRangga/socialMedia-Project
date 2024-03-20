@@ -5,7 +5,7 @@ import { GoArrowLeft } from "react-icons/go";
 const ConversationHeader = () => {
   return (
     <div className="sticky top-0 bg-white pr-3 py-2 mb-2 z-10 flex gap-2 text-center items-center">
-      <Link to="/message" >
+      <Link to="/contact" >
         <GoArrowLeft className="w-5 h-5 ml-2"/>
       </Link>
       <div className="avatar online">
